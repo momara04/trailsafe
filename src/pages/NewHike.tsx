@@ -1,52 +1,29 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, MapPin, Shield, Bell } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 const NewHike = () => {
   const [name, setName] = useState("");
-  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { toast } = useToast();
 
-  const handleStartHike = async (e: React.FormEvent) => {
+  const handleStartHike = (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
-
-    try {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) throw new Error("Not authenticated");
-
-      const { data: hike, error } = await supabase
-        .from('hikes')
-        .insert({
-          user_id: user.id,
-          name: name || 'Unnamed Hike',
-          status: 'active',
-          started_at: new Date().toISOString()
-        })
-        .select()
-        .single();
-
-      if (error) throw error;
-
-      toast({ title: "Hike started!", description: "Your hike tracking has begun." });
-      navigate(`/hike/${hike.id}`);
-    } catch (error: any) {
-      toast({ title: "Error", description: error.message, variant: "destructive" });
-    } finally {
-      setLoading(false);
-    }
+    toast({ 
+      title: "Hike started!", 
+      description: "Your hike tracking has begun." 
+    });
+    navigate(`/hike/demo-active`);
   };
 
   return (
-    <div className="min-h-screen bg-background">
-      <header className="border-b">
+    <div className="min-h-screen bg-gradient-to-br from-background via-secondary/20 to-background">
+      <header className="border-b bg-card/50 backdrop-blur-sm sticky top-0 z-10">
         <div className="container mx-auto px-4 py-4 flex items-center gap-4">
           <Button variant="ghost" size="icon" onClick={() => navigate("/")}>
             <ArrowLeft className="h-5 w-5" />
@@ -56,35 +33,57 @@ const NewHike = () => {
       </header>
 
       <main className="container mx-auto px-4 py-8">
-        <Card className="max-w-md mx-auto">
-          <CardHeader>
-            <CardTitle>Start Tracking</CardTitle>
+        <Card className="max-w-md mx-auto border-2 shadow-xl animate-fade-in">
+          <CardHeader className="text-center">
+            <div className="bg-primary/10 rounded-full p-4 w-16 h-16 mx-auto mb-4 flex items-center justify-center">
+              <MapPin className="h-8 w-8 text-primary" />
+            </div>
+            <CardTitle className="text-2xl">Start Tracking</CardTitle>
             <CardDescription>Begin tracking your hike for safety and records</CardDescription>
           </CardHeader>
           <CardContent>
-            <form onSubmit={handleStartHike} className="space-y-4">
+            <form onSubmit={handleStartHike} className="space-y-6">
               <div>
-                <Label htmlFor="name">Hike Name (Optional)</Label>
+                <Label htmlFor="name" className="text-base">Hike Name (Optional)</Label>
                 <Input
                   id="name"
                   type="text"
                   placeholder="e.g., Morning Trail Run"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
+                  className="mt-2 border-2"
                 />
               </div>
 
-              <div className="bg-muted p-4 rounded-lg">
-                <h3 className="font-semibold mb-2">Safety Features Active:</h3>
-                <ul className="text-sm space-y-1 text-muted-foreground">
-                  <li>• Real-time location tracking</li>
-                  <li>• Emergency contact notifications</li>
-                  <li>• Anomaly detection</li>
+              <div className="bg-primary/5 p-6 rounded-lg border-2 border-primary/20 space-y-4">
+                <h3 className="font-bold text-lg flex items-center gap-2">
+                  <Shield className="h-5 w-5 text-primary" />
+                  Safety Features Active
+                </h3>
+                <ul className="space-y-3">
+                  <li className="flex items-center gap-3 text-sm">
+                    <div className="bg-success rounded-full p-1">
+                      <MapPin className="h-3 w-3 text-success-foreground" />
+                    </div>
+                    <span>Real-time location tracking</span>
+                  </li>
+                  <li className="flex items-center gap-3 text-sm">
+                    <div className="bg-success rounded-full p-1">
+                      <Bell className="h-3 w-3 text-success-foreground" />
+                    </div>
+                    <span>Emergency contact notifications</span>
+                  </li>
+                  <li className="flex items-center gap-3 text-sm">
+                    <div className="bg-success rounded-full p-1">
+                      <Shield className="h-3 w-3 text-success-foreground" />
+                    </div>
+                    <span>Anomaly detection</span>
+                  </li>
                 </ul>
               </div>
 
-              <Button type="submit" className="w-full" disabled={loading}>
-                {loading ? "Starting..." : "Start Hike"}
+              <Button type="submit" size="lg" className="w-full shadow-lg">
+                Start Hike
               </Button>
             </form>
           </CardContent>

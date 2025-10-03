@@ -1,91 +1,41 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowLeft, Trash2, Plus } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { ArrowLeft, Trash2, Plus, Phone, UserCircle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 const EmergencyContacts = () => {
-  const [contacts, setContacts] = useState<any[]>([]);
+  const [contacts, setContacts] = useState([
+    { id: "1", name: "Sarah Johnson", phone_number: "+1 (555) 123-4567", relationship: "Spouse", priority: 1 },
+    { id: "2", name: "Michael Chen", phone_number: "+1 (555) 234-5678", relationship: "Brother", priority: 2 },
+    { id: "3", name: "Emma Wilson", phone_number: "+1 (555) 345-6789", relationship: "Friend", priority: 3 }
+  ]);
   const [showAdd, setShowAdd] = useState(false);
   const [newContact, setNewContact] = useState({ name: '', phone_number: '', relationship: '' });
-  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { toast } = useToast();
 
-  useEffect(() => {
-    loadContacts();
-  }, []);
-
-  const loadContacts = async () => {
-    try {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) return;
-
-      const { data, error } = await supabase
-        .from('emergency_contacts')
-        .select('*')
-        .eq('user_id', user.id)
-        .order('priority', { ascending: true });
-
-      if (error) throw error;
-      setContacts(data || []);
-    } catch (error: any) {
-      toast({ title: "Error", description: error.message, variant: "destructive" });
-    }
-  };
-
-  const handleAddContact = async (e: React.FormEvent) => {
+  const handleAddContact = (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
-
-    try {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) throw new Error("Not authenticated");
-
-      const { error } = await supabase
-        .from('emergency_contacts')
-        .insert({
-          user_id: user.id,
-          ...newContact,
-          priority: contacts.length + 1
-        });
-
-      if (error) throw error;
-
-      toast({ title: "Contact added!", description: "Emergency contact has been saved." });
-      setNewContact({ name: '', phone_number: '', relationship: '' });
-      setShowAdd(false);
-      loadContacts();
-    } catch (error: any) {
-      toast({ title: "Error", description: error.message, variant: "destructive" });
-    } finally {
-      setLoading(false);
-    }
+    const newId = (contacts.length + 1).toString();
+    setContacts([...contacts, { ...newContact, id: newId, priority: contacts.length + 1 }]);
+    toast({ title: "Contact added!", description: "Emergency contact has been saved." });
+    setNewContact({ name: '', phone_number: '', relationship: '' });
+    setShowAdd(false);
   };
 
-  const handleDeleteContact = async (id: string) => {
-    try {
-      const { error } = await supabase
-        .from('emergency_contacts')
-        .delete()
-        .eq('id', id);
-
-      if (error) throw error;
-
-      toast({ title: "Contact deleted" });
-      loadContacts();
-    } catch (error: any) {
-      toast({ title: "Error", description: error.message, variant: "destructive" });
-    }
+  const handleDeleteContact = (id: string) => {
+    setContacts(contacts.filter(c => c.id !== id));
+    toast({ title: "Contact deleted" });
   };
 
   return (
-    <div className="min-h-screen bg-background">
-      <header className="border-b">
+    <div className="min-h-screen bg-gradient-to-br from-background via-secondary/20 to-background">
+      <header className="border-b bg-card/50 backdrop-blur-sm sticky top-0 z-10">
         <div className="container mx-auto px-4 py-4 flex items-center gap-4">
           <Button variant="ghost" size="icon" onClick={() => navigate("/")}>
             <ArrowLeft className="h-5 w-5" />
@@ -95,29 +45,44 @@ const EmergencyContacts = () => {
       </header>
 
       <main className="container mx-auto px-4 py-8">
-        <div className="max-w-2xl mx-auto space-y-6">
-          <Card>
+        <div className="max-w-2xl mx-auto space-y-6 animate-fade-in">
+          <Card className="border-2 shadow-xl">
             <CardHeader>
-              <CardTitle>Your Emergency Contacts</CardTitle>
+              <CardTitle className="text-2xl flex items-center gap-2">
+                <Phone className="h-6 w-6 text-primary" />
+                Your Emergency Contacts
+              </CardTitle>
               <CardDescription>
                 These contacts will be notified in case of an emergency or SOS alert
               </CardDescription>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                {contacts.map((contact) => (
-                  <div key={contact.id} className="flex items-center justify-between p-4 border rounded-lg">
-                    <div>
-                      <h3 className="font-semibold">{contact.name}</h3>
-                      <p className="text-sm text-muted-foreground">{contact.phone_number}</p>
-                      {contact.relationship && (
-                        <p className="text-xs text-muted-foreground">{contact.relationship}</p>
-                      )}
+                {contacts.map((contact, index) => (
+                  <div key={contact.id} className="flex items-center justify-between p-6 border-2 rounded-lg bg-card hover:bg-accent/5 transition-colors">
+                    <div className="flex items-center gap-4">
+                      <div className="bg-primary/10 rounded-full p-3">
+                        <UserCircle className="h-8 w-8 text-primary" />
+                      </div>
+                      <div>
+                        <div className="flex items-center gap-2">
+                          <h3 className="font-bold text-lg">{contact.name}</h3>
+                          {index === 0 && <Badge variant="default">Primary</Badge>}
+                        </div>
+                        <p className="text-sm text-muted-foreground flex items-center gap-2">
+                          <Phone className="h-3 w-3" />
+                          {contact.phone_number}
+                        </p>
+                        {contact.relationship && (
+                          <p className="text-xs text-muted-foreground mt-1">{contact.relationship}</p>
+                        )}
+                      </div>
                     </div>
                     <Button
                       variant="ghost"
                       size="icon"
                       onClick={() => handleDeleteContact(contact.id)}
+                      className="hover:bg-destructive/10 hover:text-destructive"
                     >
                       <Trash2 className="h-4 w-4" />
                     </Button>
@@ -125,21 +90,23 @@ const EmergencyContacts = () => {
                 ))}
 
                 {contacts.length === 0 && (
-                  <p className="text-center text-muted-foreground py-8">
-                    No emergency contacts added yet
-                  </p>
+                  <div className="text-center py-12 text-muted-foreground">
+                    <UserCircle className="h-16 w-16 mx-auto mb-4 opacity-50" />
+                    <p className="text-lg">No emergency contacts added yet</p>
+                  </div>
                 )}
               </div>
 
               {!showAdd && (
-                <Button className="w-full mt-4" onClick={() => setShowAdd(true)}>
+                <Button className="w-full mt-6 border-2 shadow-md" onClick={() => setShowAdd(true)}>
                   <Plus className="h-4 w-4 mr-2" />
                   Add Contact
                 </Button>
               )}
 
               {showAdd && (
-                <form onSubmit={handleAddContact} className="mt-4 space-y-4 p-4 border rounded-lg">
+                <form onSubmit={handleAddContact} className="mt-6 space-y-4 p-6 border-2 rounded-lg bg-accent/5">
+                  <h3 className="font-bold text-lg mb-4">Add New Contact</h3>
                   <div>
                     <Label htmlFor="name">Name</Label>
                     <Input
@@ -147,6 +114,7 @@ const EmergencyContacts = () => {
                       required
                       value={newContact.name}
                       onChange={(e) => setNewContact({ ...newContact, name: e.target.value })}
+                      className="border-2 mt-1"
                     />
                   </div>
                   <div>
@@ -157,6 +125,7 @@ const EmergencyContacts = () => {
                       required
                       value={newContact.phone_number}
                       onChange={(e) => setNewContact({ ...newContact, phone_number: e.target.value })}
+                      className="border-2 mt-1"
                     />
                   </div>
                   <div>
@@ -165,13 +134,14 @@ const EmergencyContacts = () => {
                       id="relationship"
                       value={newContact.relationship}
                       onChange={(e) => setNewContact({ ...newContact, relationship: e.target.value })}
+                      className="border-2 mt-1"
                     />
                   </div>
-                  <div className="flex gap-2">
-                    <Button type="submit" disabled={loading}>
-                      {loading ? "Adding..." : "Add Contact"}
+                  <div className="flex gap-2 pt-2">
+                    <Button type="submit" className="flex-1">
+                      Add Contact
                     </Button>
-                    <Button type="button" variant="outline" onClick={() => setShowAdd(false)}>
+                    <Button type="button" variant="outline" onClick={() => setShowAdd(false)} className="flex-1 border-2">
                       Cancel
                     </Button>
                   </div>

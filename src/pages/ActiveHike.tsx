@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ArrowLeft, MapPin, Clock, AlertCircle, Navigation } from "lucide-react";
+import { ArrowLeft, MapPin, Clock, AlertCircle, Navigation, Route } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 const ActiveHike = () => {
@@ -11,6 +11,14 @@ const ActiveHike = () => {
   const [location] = useState({ latitude: 34.0522, longitude: -118.2437 }); // Mock location
   const navigate = useNavigate();
   const { toast } = useToast();
+
+  const breadcrumbs = [
+    { lat: 34.0522, lng: -118.2437, time: "10:00 AM", alt: "2850m" },
+    { lat: 34.0525, lng: -118.2440, time: "10:15 AM", alt: "2875m" },
+    { lat: 34.0530, lng: -118.2448, time: "10:30 AM", alt: "2920m" },
+    { lat: 34.0538, lng: -118.2455, time: "10:45 AM", alt: "2965m" },
+    { lat: 34.0545, lng: -118.2462, time: "11:00 AM", alt: "3010m" },
+  ];
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -116,6 +124,32 @@ const ActiveHike = () => {
                   <p className="text-2xl font-bold text-primary">3.8</p>
                   <p className="text-xs text-muted-foreground">km/h avg speed</p>
                 </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="border-2 shadow-xl">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2 text-xl">
+                <Route className="h-5 w-5 text-primary" />
+                Breadcrumb Trail
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-3">
+                {breadcrumbs.map((point, idx) => (
+                  <div 
+                    key={idx}
+                    className="flex items-center gap-3 p-3 rounded-lg bg-secondary/20 border hover:bg-secondary/30 transition-colors"
+                  >
+                    <div className={`w-2 h-2 rounded-full ${idx === breadcrumbs.length - 1 ? 'bg-primary animate-pulse' : 'bg-muted-foreground'}`} />
+                    <div className="flex-1 grid grid-cols-3 gap-2 text-sm">
+                      <span className="font-mono">{point.lat.toFixed(4)}, {point.lng.toFixed(4)}</span>
+                      <span className="text-muted-foreground">{point.time}</span>
+                      <span className="text-muted-foreground">{point.alt}</span>
+                    </div>
+                  </div>
+                ))}
               </div>
             </CardContent>
           </Card>

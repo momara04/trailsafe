@@ -9,6 +9,9 @@ import ActiveHike from "./pages/ActiveHike";
 import PlanRoute from "./pages/PlanRoute";
 import EmergencyContacts from "./pages/EmergencyContacts";
 import Settings from "./pages/Settings";
+import GearChecklist from "./pages/GearChecklist";
+import WildlifeAlerts from "./pages/WildlifeAlerts";
+import OfflineMaps from "./pages/OfflineMaps";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -26,6 +29,9 @@ const App = () => (
           <Route path="/plan-route" element={<PlanRoute />} />
           <Route path="/emergency-contacts" element={<EmergencyContacts />} />
           <Route path="/settings" element={<Settings />} />
+          <Route path="/gear-checklist" element={<GearChecklist />} />
+          <Route path="/wildlife-alerts" element={<WildlifeAlerts />} />
+          <Route path="/offline-maps" element={<OfflineMaps />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

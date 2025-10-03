@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Mountain, Settings, Users, MapPin, Clock, TrendingUp, AlertCircle, Cloud, Droplets, Wind, Battery, Activity, Shield, Sun, CloudRain } from "lucide-react";
+import { Mountain, Settings, Users, MapPin, Clock, TrendingUp, AlertCircle, Cloud, Droplets, Wind, Battery, Activity, Shield, Sun, CloudRain, Backpack, AlertTriangle, Map as MapIcon, Bell } from "lucide-react";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -310,20 +310,42 @@ const Dashboard = () => {
           </Card>
         </div>
 
-        <div className="flex flex-wrap gap-4 mb-8 animate-fade-in">
-          <Button size="lg" className="shadow-lg hover:shadow-xl transition-shadow" onClick={() => navigate("/new-hike")}>
-            <MapPin className="h-4 w-4 mr-2" />
-            Start New Hike
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8 animate-fade-in">
+          <Button size="lg" className="shadow-lg hover:shadow-xl transition-shadow flex-col h-24 gap-2" onClick={() => navigate("/new-hike")}>
+            <MapPin className="h-6 w-6" />
+            <span>Start Hike</span>
           </Button>
-          <Button size="lg" variant="outline" className="border-2" onClick={() => navigate("/plan-route")}>
-            <TrendingUp className="h-4 w-4 mr-2" />
-            Plan Route
+          <Button size="lg" variant="outline" className="border-2 flex-col h-24 gap-2" onClick={() => navigate("/gear-checklist")}>
+            <Backpack className="h-6 w-6" />
+            <span>Gear Checklist</span>
           </Button>
-          <Button size="lg" variant="outline" className="border-2" onClick={() => navigate("/emergency-contacts")}>
-            <Users className="h-4 w-4 mr-2" />
-            Emergency Contacts
+          <Button size="lg" variant="outline" className="border-2 flex-col h-24 gap-2" onClick={() => navigate("/wildlife-alerts")}>
+            <AlertTriangle className="h-6 w-6" />
+            <span>Wildlife Alerts</span>
+          </Button>
+          <Button size="lg" variant="outline" className="border-2 flex-col h-24 gap-2" onClick={() => navigate("/offline-maps")}>
+            <MapIcon className="h-6 w-6" />
+            <span>Offline Maps</span>
           </Button>
         </div>
+
+        <Card className="mb-8 border-2 shadow-lg bg-gradient-to-br from-primary/10 to-primary/5">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Bell className="h-5 w-5 text-primary" />
+              Check-in Reminder
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="font-medium">Next automatic check-in in:</p>
+                <p className="text-2xl font-bold text-primary">15 minutes</p>
+              </div>
+              <Button variant="outline">Check In Now</Button>
+            </div>
+          </CardContent>
+        </Card>
 
         {activeHikes.length > 0 && (
           <Card className="mb-8 border-2 animate-fade-in">

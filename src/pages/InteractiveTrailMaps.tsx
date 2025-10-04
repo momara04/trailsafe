@@ -1,15 +1,17 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Mountain, MapPin, TrendingUp, Clock, Users, Backpack, AlertTriangle, Map as MapIcon, ArrowLeft, ChevronRight } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Mountain, MapPin, TrendingUp, Clock, Users, Backpack, AlertTriangle, Map as MapIcon, ArrowLeft, ChevronRight, Search, X } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 
 const InteractiveTrailMaps = () => {
   const navigate = useNavigate();
   const [selectedTrail, setSelectedTrail] = useState<string | null>(null);
+  const [searchQuery, setSearchQuery] = useState("");
 
   // Mock trail data
   const trails = [
@@ -96,6 +98,18 @@ const InteractiveTrailMaps = () => {
     { distance: 12, elevation: 2840 }
   ];
 
+  // Filter trails based on search query
+  const filteredTrails = useMemo(() => {
+    if (!searchQuery.trim()) return trails;
+    
+    const query = searchQuery.toLowerCase().trim();
+    return trails.filter(trail => 
+      trail.name.toLowerCase().includes(query) ||
+      trail.path.toLowerCase().includes(query) ||
+      trail.features.some(feature => feature.toLowerCase().includes(query))
+    );
+  }, [searchQuery]);
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-secondary/20 to-background">
       <header className="border-b bg-card/50 backdrop-blur-sm sticky top-0 z-10">
@@ -113,6 +127,35 @@ const InteractiveTrailMaps = () => {
       </header>
 
       <main className="container mx-auto px-3 md:px-4 py-4 md:py-8">
+        {/* Search Bar */}
+        <div className="mb-4 md:mb-6">
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 md:h-5 md:w-5 text-muted-foreground" />
+            <Input
+              type="text"
+              placeholder="Search trails by name, location, or features..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="pl-9 md:pl-10 pr-9 md:pr-10 h-10 md:h-12 text-sm md:text-base"
+            />
+            {searchQuery && (
+              <Button
+                variant="ghost"
+                size="icon"
+                className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7 md:h-8 md:w-8"
+                onClick={() => setSearchQuery("")}
+              >
+                <X className="h-3 w-3 md:h-4 md:w-4" />
+              </Button>
+            )}
+          </div>
+          {searchQuery && (
+            <p className="text-xs md:text-sm text-muted-foreground mt-2">
+              Found {filteredTrails.length} trail{filteredTrails.length !== 1 ? 's' : ''}
+            </p>
+          )}
+        </div>
+
         <Tabs defaultValue="all" className="w-full">
           <TabsList className="grid w-full grid-cols-4 mb-4 md:mb-8 h-auto">
             <TabsTrigger value="all" className="gap-1 md:gap-2 py-2 md:py-2.5 text-xs md:text-sm">
@@ -136,8 +179,17 @@ const InteractiveTrailMaps = () => {
           </TabsList>
 
           <TabsContent value="all" className="space-y-4 md:space-y-6">
-            <div className="grid gap-4 md:gap-6">
-              {trails.map((trail) => (
+            {filteredTrails.length === 0 ? (
+              <Card className="p-8 md:p-12 text-center">
+                <MapPin className="h-12 w-12 md:h-16 md:w-16 mx-auto mb-4 text-muted-foreground" />
+                <h3 className="text-lg md:text-xl font-semibold mb-2">No trails found</h3>
+                <p className="text-sm md:text-base text-muted-foreground">
+                  Try adjusting your search terms or browse all trails
+                </p>
+              </Card>
+            ) : (
+              <div className="grid gap-4 md:gap-6">
+                {filteredTrails.map((trail) => (
                 <Card 
                   key={trail.id}
                   className="border-2 hover:shadow-lg transition-shadow cursor-pointer"
@@ -225,13 +277,23 @@ const InteractiveTrailMaps = () => {
                     </div>
                   </CardContent>
                 </Card>
-              ))}
-            </div>
+                ))}
+              </div>
+            )}
           </TabsContent>
 
           <TabsContent value="easy" className="space-y-6">
-            <div className="grid gap-6">
-              {trails.filter(t => t.difficulty === "Easy").map((trail) => (
+            {filteredTrails.filter(t => t.difficulty === "Easy").length === 0 ? (
+              <Card className="p-8 md:p-12 text-center">
+                <Mountain className="h-12 w-12 md:h-16 md:w-16 mx-auto mb-4 text-muted-foreground" />
+                <h3 className="text-lg md:text-xl font-semibold mb-2">No easy trails found</h3>
+                <p className="text-sm md:text-base text-muted-foreground">
+                  Try adjusting your search terms
+                </p>
+              </Card>
+            ) : (
+              <div className="grid gap-6">
+                {filteredTrails.filter(t => t.difficulty === "Easy").map((trail) => (
                 <Card 
                   key={trail.id}
                   className="border-2 hover:shadow-lg transition-shadow cursor-pointer"
@@ -285,13 +347,23 @@ const InteractiveTrailMaps = () => {
                     </Button>
                   </CardContent>
                 </Card>
-              ))}
-            </div>
+                ))}
+              </div>
+            )}
           </TabsContent>
 
           <TabsContent value="moderate" className="space-y-6">
-            <div className="grid gap-6">
-              {trails.filter(t => t.difficulty === "Moderate").map((trail) => (
+            {filteredTrails.filter(t => t.difficulty === "Moderate").length === 0 ? (
+              <Card className="p-8 md:p-12 text-center">
+                <TrendingUp className="h-12 w-12 md:h-16 md:w-16 mx-auto mb-4 text-muted-foreground" />
+                <h3 className="text-lg md:text-xl font-semibold mb-2">No moderate trails found</h3>
+                <p className="text-sm md:text-base text-muted-foreground">
+                  Try adjusting your search terms
+                </p>
+              </Card>
+            ) : (
+              <div className="grid gap-6">
+                {filteredTrails.filter(t => t.difficulty === "Moderate").map((trail) => (
                 <Card 
                   key={trail.id}
                   className="border-2 hover:shadow-lg transition-shadow cursor-pointer"
@@ -345,13 +417,23 @@ const InteractiveTrailMaps = () => {
                     </Button>
                   </CardContent>
                 </Card>
-              ))}
-            </div>
+                ))}
+              </div>
+            )}
           </TabsContent>
 
           <TabsContent value="hard" className="space-y-6">
-            <div className="grid gap-6">
-              {trails.filter(t => t.difficulty === "Hard").map((trail) => (
+            {filteredTrails.filter(t => t.difficulty === "Hard").length === 0 ? (
+              <Card className="p-8 md:p-12 text-center">
+                <AlertTriangle className="h-12 w-12 md:h-16 md:w-16 mx-auto mb-4 text-muted-foreground" />
+                <h3 className="text-lg md:text-xl font-semibold mb-2">No hard trails found</h3>
+                <p className="text-sm md:text-base text-muted-foreground">
+                  Try adjusting your search terms
+                </p>
+              </Card>
+            ) : (
+              <div className="grid gap-6">
+                {filteredTrails.filter(t => t.difficulty === "Hard").map((trail) => (
                 <Card 
                   key={trail.id}
                   className="border-2 hover:shadow-lg transition-shadow cursor-pointer"
@@ -405,8 +487,9 @@ const InteractiveTrailMaps = () => {
                     </Button>
                   </CardContent>
                 </Card>
-              ))}
-            </div>
+                ))}
+              </div>
+            )}
           </TabsContent>
         </Tabs>
       </main>

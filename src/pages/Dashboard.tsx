@@ -4,10 +4,13 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Mountain, Settings, Users, MapPin, Clock, TrendingUp, AlertCircle, Cloud, Droplets, Wind, Battery, Activity, Shield, Sun, CloudRain, Backpack, AlertTriangle, Map as MapIcon, Bell } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { useState } from "react";
 
 const Dashboard = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
+  const [showCheckInDialog, setShowCheckInDialog] = useState(false);
 
   // Mock data for beautiful UI
   const activeHikes = [
@@ -339,7 +342,10 @@ const Dashboard = () => {
           </Button>
         </div>
 
-        <Card className="mb-8 border-2 shadow-lg bg-gradient-to-br from-primary/10 to-primary/5">
+        <Card 
+          className="mb-8 border-2 shadow-lg bg-gradient-to-br from-primary/10 to-primary/5 cursor-pointer hover:shadow-xl transition-shadow"
+          onClick={() => setShowCheckInDialog(true)}
+        >
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Bell className="h-5 w-5 text-primary" />
@@ -352,7 +358,13 @@ const Dashboard = () => {
                 <p className="font-medium">Next automatic check-in in:</p>
                 <p className="text-2xl font-bold text-primary">15 minutes</p>
               </div>
-              <Button variant="outline">Check In Now</Button>
+              <Button variant="outline" onClick={(e) => {
+                e.stopPropagation();
+                toast({
+                  title: "Check-in Successful!",
+                  description: "Your emergency contacts have been notified.",
+                });
+              }}>Check In Now</Button>
             </div>
           </CardContent>
         </Card>
@@ -458,6 +470,51 @@ const Dashboard = () => {
         <AlertCircle className="h-6 w-6 mr-2" />
         SEND SOS ALERT
       </Button>
+
+      <Dialog open={showCheckInDialog} onOpenChange={setShowCheckInDialog}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <Bell className="h-5 w-5 text-orange-500" />
+              Check-in Reminder
+            </DialogTitle>
+            <DialogDescription>
+              Stay safe by checking in regularly during your hike
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4 py-4">
+            <div className="text-center">
+              <p className="text-sm text-muted-foreground mb-2">Time until next check-in</p>
+              <p className="text-4xl font-bold text-orange-600">12:00</p>
+              <p className="text-sm text-muted-foreground mt-1">minutes</p>
+            </div>
+            <div className="border-t pt-4 space-y-2">
+              <div className="flex justify-between text-sm">
+                <span className="text-muted-foreground">Last check-in:</span>
+                <span className="font-medium">18 minutes ago</span>
+              </div>
+              <div className="flex justify-between text-sm">
+                <span className="text-muted-foreground">Check-in interval:</span>
+                <span className="font-medium">30 minutes</span>
+              </div>
+              <div className="flex justify-between text-sm">
+                <span className="text-muted-foreground">Emergency contacts notified:</span>
+                <span className="font-medium">3 contacts</span>
+              </div>
+            </div>
+            <Button className="w-full" onClick={() => {
+              toast({
+                title: "Check-in Successful!",
+                description: "Your emergency contacts have been notified.",
+              });
+              setShowCheckInDialog(false);
+            }}>
+              <Bell className="h-4 w-4 mr-2" />
+              Check In Now
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };

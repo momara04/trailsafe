@@ -107,14 +107,57 @@ TrailSafe is a **full-stack mobile/web application** designed to keep hikers saf
 ---
 
 ## 📸 Screenshots  
-(*Add actual images here for recruiters — you already have them!*)  
-- Safety Alerts → anomaly detection and check-in notifications.  
-- Active Hike Tracking → duration, GPS, elevation, breadcrumb trail.  
-- Smart Gear Checklist → categorized gear prep with progress indicators.  
-- Wildlife Alerts → real-time, severity-ranked animal sightings.  
-- Offline Maps → downloaded and available maps for major parks.  
-- Trail Maps → searchable/filterable database with elevation profiles.  
-- Settings → profile and safety configuration.  
+Below are select UI views of TrailSafe in action.
+
+### 🧭 Safety Alerts  
+Anomaly detection and timed check-ins that ensure user safety on-trail.  
+![Check-in Notification](./screenshots/checkin_notif.png)
+
+---
+
+### 🥾 Active Hike Tracking  
+Displays live hike data — duration, GPS path, and elevation gain.  
+![Main Dashboard 1](./screenshots/maindash-1.png)  
+![Main Dashboard 2](./screenshots/maindash-2.png)  
+![Main Dashboard 3](./screenshots/maindash-3.png)  
+![Main Dashboard 4](./screenshots/maindash-4.png)  
+![Main Dashboard 5](./screenshots/maindash-5.png)  
+![Hike Detail 1](./screenshots/hikedetail-1.png)  
+![Hike Detail 2](./screenshots/hikedetail-2.png)
+
+---
+
+### 🎒 Smart Gear Checklist  
+Organized gear preparation with category grouping and progress indicators.  
+![Gear Checklist](./screenshots/gearcheck.png)
+
+---
+
+### 🐾 Wildlife Alerts  
+Severity-ranked nearby animal sightings from other hikers in real time.  
+![Wildlife Alerts](./screenshots/wildlife_alert.png)
+
+---
+
+### 🗺️ Offline Maps  
+Downloaded maps remain accessible without cell signal.  
+![Offline Maps](./screenshots/offline_map.png)
+
+---
+
+### 🏞️ Trail Maps  
+Filter trails by difficulty, length, and rating, with detailed elevation profiles.  
+![Trail Map 1](./screenshots/trailmap-1.png)  
+![Trail Map 2](./screenshots/trailmap-2.png)
+
+---
+
+### ⚙️ Settings  
+Personal and safety configuration including anomaly detection, auto check-in, and intervals.  
+![User Settings 1](./screenshots/usersettings-1.png)  
+![User Settings 2](./screenshots/usersettings-2.png)  
+![Manual Check-In](./screenshots/manualcheckin.png)
+  
 
 ---
 

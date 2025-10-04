@@ -99,89 +99,91 @@ const InteractiveTrailMaps = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-secondary/20 to-background">
       <header className="border-b bg-card/50 backdrop-blur-sm sticky top-0 z-10">
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <Button variant="ghost" size="icon" onClick={() => navigate("/")}>
-              <ArrowLeft className="h-5 w-5" />
+        <div className="container mx-auto px-3 md:px-4 py-3 md:py-4 flex items-center justify-between">
+          <div className="flex items-center gap-2 md:gap-3">
+            <Button variant="ghost" size="icon" className="h-9 w-9 md:h-10 md:w-10" onClick={() => navigate("/")}>
+              <ArrowLeft className="h-4 w-4 md:h-5 md:w-5" />
             </Button>
-            <div className="bg-primary rounded-lg p-2">
-              <MapIcon className="h-6 w-6 text-primary-foreground" />
+            <div className="bg-primary rounded-lg p-1.5 md:p-2">
+              <MapIcon className="h-5 w-5 md:h-6 md:w-6 text-primary-foreground" />
             </div>
-            <h1 className="text-2xl font-bold">Interactive Trail Maps</h1>
+            <h1 className="text-lg md:text-2xl font-bold">Trail Maps</h1>
           </div>
         </div>
       </header>
 
-      <main className="container mx-auto px-4 py-8">
+      <main className="container mx-auto px-3 md:px-4 py-4 md:py-8">
         <Tabs defaultValue="all" className="w-full">
-          <TabsList className="grid w-full grid-cols-4 mb-8">
-            <TabsTrigger value="all" className="gap-2">
-              <MapIcon className="h-4 w-4" />
-              All Trails
+          <TabsList className="grid w-full grid-cols-4 mb-4 md:mb-8 h-auto">
+            <TabsTrigger value="all" className="gap-1 md:gap-2 py-2 md:py-2.5 text-xs md:text-sm">
+              <MapIcon className="h-3 w-3 md:h-4 md:w-4" />
+              <span className="hidden sm:inline">All Trails</span>
+              <span className="sm:hidden">All</span>
             </TabsTrigger>
-            <TabsTrigger value="easy" className="gap-2">
-              <Mountain className="h-4 w-4" />
+            <TabsTrigger value="easy" className="gap-1 md:gap-2 py-2 md:py-2.5 text-xs md:text-sm">
+              <Mountain className="h-3 w-3 md:h-4 md:w-4" />
               Easy
             </TabsTrigger>
-            <TabsTrigger value="moderate" className="gap-2">
-              <TrendingUp className="h-4 w-4" />
-              Moderate
+            <TabsTrigger value="moderate" className="gap-1 md:gap-2 py-2 md:py-2.5 text-xs md:text-sm">
+              <TrendingUp className="h-3 w-3 md:h-4 md:w-4" />
+              <span className="hidden sm:inline">Moderate</span>
+              <span className="sm:hidden">Mod</span>
             </TabsTrigger>
-            <TabsTrigger value="hard" className="gap-2">
-              <AlertTriangle className="h-4 w-4" />
+            <TabsTrigger value="hard" className="gap-1 md:gap-2 py-2 md:py-2.5 text-xs md:text-sm">
+              <AlertTriangle className="h-3 w-3 md:h-4 md:w-4" />
               Hard
             </TabsTrigger>
           </TabsList>
 
-          <TabsContent value="all" className="space-y-6">
-            <div className="grid gap-6">
+          <TabsContent value="all" className="space-y-4 md:space-y-6">
+            <div className="grid gap-4 md:gap-6">
               {trails.map((trail) => (
                 <Card 
                   key={trail.id}
                   className="border-2 hover:shadow-lg transition-shadow cursor-pointer"
                   onClick={() => setSelectedTrail(trail.id)}
                 >
-                  <CardHeader>
-                    <div className="flex items-start justify-between">
-                      <div>
-                        <CardTitle className="text-2xl mb-2">{trail.name}</CardTitle>
-                        <CardDescription className="flex items-center gap-2">
-                          <MapPin className="h-4 w-4" />
-                          {trail.path}
+                  <CardHeader className="pb-3 md:pb-6">
+                    <div className="flex items-start justify-between gap-2">
+                      <div className="min-w-0 flex-1">
+                        <CardTitle className="text-lg md:text-2xl mb-1 md:mb-2">{trail.name}</CardTitle>
+                        <CardDescription className="flex items-center gap-1 md:gap-2 text-xs md:text-sm">
+                          <MapPin className="h-3 w-3 md:h-4 md:w-4 shrink-0" />
+                          <span className="line-clamp-1">{trail.path}</span>
                         </CardDescription>
                       </div>
-                      <Badge className={`${trail.difficultyBg} ${trail.difficultyColor} border-0`}>
+                      <Badge className={`${trail.difficultyBg} ${trail.difficultyColor} border-0 text-xs shrink-0`}>
                         {trail.difficulty}
                       </Badge>
                     </div>
                   </CardHeader>
-                  <CardContent className="space-y-4">
-                    <div className="grid grid-cols-4 gap-4">
-                      <div className="text-center p-3 border-2 rounded-lg">
-                        <p className="text-xs text-muted-foreground mb-1">Distance</p>
-                        <p className="text-lg font-bold">{trail.distance} km</p>
+                  <CardContent className="space-y-3 md:space-y-4">
+                    <div className="grid grid-cols-4 gap-2 md:gap-4">
+                      <div className="text-center p-2 md:p-3 border-2 rounded-lg">
+                        <p className="text-xs text-muted-foreground mb-0.5 md:mb-1">Distance</p>
+                        <p className="text-sm md:text-lg font-bold">{trail.distance} km</p>
                       </div>
-                      <div className="text-center p-3 border-2 rounded-lg">
-                        <p className="text-xs text-muted-foreground mb-1">Elevation</p>
-                        <p className="text-lg font-bold">{trail.elevation} ft</p>
+                      <div className="text-center p-2 md:p-3 border-2 rounded-lg">
+                        <p className="text-xs text-muted-foreground mb-0.5 md:mb-1">Elevation</p>
+                        <p className="text-sm md:text-lg font-bold">{trail.elevation} ft</p>
                       </div>
-                      <div className="text-center p-3 border-2 rounded-lg">
-                        <p className="text-xs text-muted-foreground mb-1">Duration</p>
-                        <p className="text-lg font-bold">{Math.floor(trail.duration / 60)}h {trail.duration % 60}m</p>
+                      <div className="text-center p-2 md:p-3 border-2 rounded-lg">
+                        <p className="text-xs text-muted-foreground mb-0.5 md:mb-1">Duration</p>
+                        <p className="text-sm md:text-lg font-bold">{Math.floor(trail.duration / 60)}h {trail.duration % 60}m</p>
                       </div>
-                      <div className="text-center p-3 border-2 rounded-lg">
-                        <p className="text-xs text-muted-foreground mb-1">Rating</p>
-                        <p className="text-lg font-bold">★ {trail.rating}</p>
+                      <div className="text-center p-2 md:p-3 border-2 rounded-lg">
+                        <p className="text-xs text-muted-foreground mb-0.5 md:mb-1">Rating</p>
+                        <p className="text-sm md:text-lg font-bold">★ {trail.rating}</p>
                       </div>
                     </div>
 
                     {/* Elevation Profile Visualization */}
-                    <div className="p-4 border-2 rounded-lg bg-muted/30">
-                      <div className="flex items-center justify-between mb-3">
-                        <p className="text-sm font-semibold">Elevation Profile</p>
-                        <TrendingUp className="h-4 w-4 text-primary" />
+                    <div className="p-3 md:p-4 border-2 rounded-lg bg-muted/30">
+                      <div className="flex items-center justify-between mb-2 md:mb-3">
+                        <p className="text-xs md:text-sm font-semibold">Elevation Profile</p>
+                        <TrendingUp className="h-3 w-3 md:h-4 md:w-4 text-primary" />
                       </div>
-                      <div className="relative h-24 flex items-end gap-1">
+                      <div className="relative h-20 md:h-24 flex items-end gap-0.5 md:gap-1">
                         {elevationProfile.map((point, idx) => {
                           const maxElevation = Math.max(...elevationProfile.map(p => p.elevation));
                           const heightPercent = (point.elevation / maxElevation) * 100;
@@ -195,29 +197,30 @@ const InteractiveTrailMaps = () => {
                           );
                         })}
                       </div>
-                      <div className="flex justify-between mt-2 text-xs text-muted-foreground">
+                      <div className="flex justify-between mt-1.5 md:mt-2 text-xs text-muted-foreground">
                         <span>Start</span>
                         <span>Mid</span>
                         <span>End</span>
                       </div>
                     </div>
 
-                    <div className="flex flex-wrap gap-2">
+                    <div className="flex flex-wrap gap-1.5 md:gap-2">
                       {trail.features.map((feature, idx) => (
-                        <Badge key={idx} variant="outline">
+                        <Badge key={idx} variant="outline" className="text-xs">
                           {feature}
                         </Badge>
                       ))}
                     </div>
 
-                    <div className="flex items-center justify-between pt-2 border-t">
-                      <p className="text-sm text-muted-foreground">
-                        <Users className="h-4 w-4 inline mr-1" />
-                        {trail.reviews} hikers reviewed
+                    <div className="flex items-center justify-between pt-2 md:pt-3 border-t gap-3">
+                      <p className="text-xs md:text-sm text-muted-foreground">
+                        <Users className="h-3 w-3 md:h-4 md:w-4 inline mr-1" />
+                        {trail.reviews} hikers
                       </p>
-                      <Button className="gap-2">
-                        View Details
-                        <ChevronRight className="h-4 w-4" />
+                      <Button size="sm" className="gap-1 md:gap-2 text-xs md:text-sm">
+                        <span className="hidden sm:inline">View Details</span>
+                        <span className="sm:hidden">View</span>
+                        <ChevronRight className="h-3 w-3 md:h-4 md:w-4" />
                       </Button>
                     </div>
                   </CardContent>

@@ -187,129 +187,129 @@ const Dashboard = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-secondary/20 to-background">
       <header className="border-b bg-card/50 backdrop-blur-sm sticky top-0 z-10">
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="bg-primary rounded-lg p-2">
-              <Mountain className="h-6 w-6 text-primary-foreground" />
+        <div className="container mx-auto px-3 md:px-4 py-3 md:py-4 flex items-center justify-between">
+          <div className="flex items-center gap-2 md:gap-3">
+            <div className="bg-primary rounded-lg p-1.5 md:p-2">
+              <Mountain className="h-5 w-5 md:h-6 md:w-6 text-primary-foreground" />
             </div>
-            <h1 className="text-2xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+            <h1 className="text-xl md:text-2xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
               TrailSafe
             </h1>
           </div>
           <div className="flex items-center gap-2">
-            <Button variant="ghost" size="icon" onClick={() => navigate("/settings")}>
-              <Settings className="h-5 w-5" />
+            <Button variant="ghost" size="icon" className="h-9 w-9 md:h-10 md:w-10" onClick={() => navigate("/settings")}>
+              <Settings className="h-4 w-4 md:h-5 md:w-5" />
             </Button>
           </div>
         </div>
       </header>
 
-      <main className="container mx-auto px-4 py-8">
-        <div className="mb-8 animate-fade-in">
-          <h2 className="text-4xl font-bold mb-2">Your Safety Companion</h2>
-          <p className="text-lg text-muted-foreground">Track your hikes, stay safe, explore confidently</p>
+      <main className="container mx-auto px-3 md:px-4 py-4 md:py-8 pb-24 md:pb-8">
+        <div className="mb-6 md:mb-8 animate-fade-in">
+          <h2 className="text-2xl md:text-4xl font-bold mb-1 md:mb-2">Your Safety Companion</h2>
+          <p className="text-sm md:text-lg text-muted-foreground">Track your hikes, stay safe, explore confidently</p>
         </div>
 
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 mb-8 animate-fade-in">
+        <div className="grid gap-3 md:gap-6 grid-cols-2 lg:grid-cols-4 mb-6 md:mb-8 animate-fade-in">
           <Card className="hover-scale border-2">
-            <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="text-sm font-medium">Active Hikes</CardTitle>
-              <MapPin className="h-5 w-5 text-primary" />
+            <CardHeader className="flex flex-row items-center justify-between pb-1 md:pb-2">
+              <CardTitle className="text-xs md:text-sm font-medium">Active Hikes</CardTitle>
+              <MapPin className="h-4 w-4 md:h-5 md:w-5 text-primary" />
             </CardHeader>
             <CardContent>
-              <div className="text-3xl font-bold text-primary">{activeHikes.length}</div>
-              <p className="text-xs text-muted-foreground mt-1">Currently tracking</p>
+              <div className="text-2xl md:text-3xl font-bold text-primary">{activeHikes.length}</div>
+              <p className="text-xs text-muted-foreground mt-0.5 md:mt-1">Currently tracking</p>
             </CardContent>
           </Card>
           
           <Card className="hover-scale border-2">
-            <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="text-sm font-medium">Total Hikes</CardTitle>
-              <TrendingUp className="h-5 w-5 text-primary" />
+            <CardHeader className="flex flex-row items-center justify-between pb-1 md:pb-2">
+              <CardTitle className="text-xs md:text-sm font-medium">Total Hikes</CardTitle>
+              <TrendingUp className="h-4 w-4 md:h-5 md:w-5 text-primary" />
             </CardHeader>
             <CardContent>
-              <div className="text-3xl font-bold">{activeHikes.length + recentHikes.length}</div>
-              <p className="text-xs text-muted-foreground mt-1">All adventures</p>
+              <div className="text-2xl md:text-3xl font-bold">{activeHikes.length + recentHikes.length}</div>
+              <p className="text-xs text-muted-foreground mt-0.5 md:mt-1">All adventures</p>
             </CardContent>
           </Card>
           
           <Card className="hover-scale border-2">
-            <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="text-sm font-medium">Battery</CardTitle>
-              <Battery className="h-5 w-5 text-success" />
+            <CardHeader className="flex flex-row items-center justify-between pb-1 md:pb-2">
+              <CardTitle className="text-xs md:text-sm font-medium">Battery</CardTitle>
+              <Battery className="h-4 w-4 md:h-5 md:w-5 text-success" />
             </CardHeader>
             <CardContent>
-              <div className="text-3xl font-bold text-success">{safetyStatus.battery}%</div>
-              <p className="text-xs text-muted-foreground mt-1">Device status</p>
+              <div className="text-2xl md:text-3xl font-bold text-success">{safetyStatus.battery}%</div>
+              <p className="text-xs text-muted-foreground mt-0.5 md:mt-1">Device status</p>
             </CardContent>
           </Card>
 
           <Card className="hover-scale border-2 bg-success/5">
-            <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="text-sm font-medium">Safety Status</CardTitle>
-              <Shield className="h-5 w-5 text-success" />
+            <CardHeader className="flex flex-row items-center justify-between pb-1 md:pb-2">
+              <CardTitle className="text-xs md:text-sm font-medium">Safety Status</CardTitle>
+              <Shield className="h-4 w-4 md:h-5 md:w-5 text-success" />
             </CardHeader>
             <CardContent>
-              <div className="text-3xl font-bold text-success">Safe</div>
-              <p className="text-xs text-muted-foreground mt-1">All systems active</p>
+              <div className="text-2xl md:text-3xl font-bold text-success">Safe</div>
+              <p className="text-xs text-muted-foreground mt-0.5 md:mt-1">All systems active</p>
             </CardContent>
           </Card>
         </div>
 
-        <div className="grid gap-6 lg:grid-cols-2 mb-8 animate-fade-in">
+        <div className="grid gap-4 md:gap-6 lg:grid-cols-2 mb-6 md:mb-8 animate-fade-in">
           <Card className="border-2">
-            <CardHeader>
-              <CardTitle className="text-2xl flex items-center gap-2">
-                <Cloud className="h-6 w-6 text-primary" />
+            <CardHeader className="pb-3 md:pb-6">
+              <CardTitle className="text-lg md:text-2xl flex items-center gap-2">
+                <Cloud className="h-5 w-5 md:h-6 md:w-6 text-primary" />
                 Weather Conditions
               </CardTitle>
-              <CardDescription>Current conditions for your location</CardDescription>
+              <CardDescription className="text-xs md:text-sm">Current conditions for your location</CardDescription>
             </CardHeader>
-            <CardContent className="space-y-6">
+            <CardContent className="space-y-4 md:space-y-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <div className="text-5xl font-bold">{weather.temperature}°F</div>
-                  <p className="text-lg text-muted-foreground">{weather.condition}</p>
+                  <div className="text-3xl md:text-5xl font-bold">{weather.temperature}°F</div>
+                  <p className="text-sm md:text-lg text-muted-foreground">{weather.condition}</p>
                 </div>
-                <div className="bg-primary/10 rounded-full p-4">
-                  <Sun className="h-12 w-12 text-primary" />
+                <div className="bg-primary/10 rounded-full p-2 md:p-4">
+                  <Sun className="h-8 w-8 md:h-12 md:w-12 text-primary" />
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
-                <div className="flex items-center gap-3 p-4 border-2 rounded-lg">
-                  <Droplets className="h-5 w-5 text-primary" />
+              <div className="grid grid-cols-2 gap-2 md:gap-4">
+                <div className="flex items-center gap-2 md:gap-3 p-2 md:p-4 border-2 rounded-lg">
+                  <Droplets className="h-4 w-4 md:h-5 md:w-5 text-primary" />
                   <div>
                     <p className="text-xs text-muted-foreground">Humidity</p>
-                    <p className="text-lg font-bold">{weather.humidity}%</p>
+                    <p className="text-sm md:text-lg font-bold">{weather.humidity}%</p>
                   </div>
                 </div>
-                <div className="flex items-center gap-3 p-4 border-2 rounded-lg">
-                  <Wind className="h-5 w-5 text-primary" />
+                <div className="flex items-center gap-2 md:gap-3 p-2 md:p-4 border-2 rounded-lg">
+                  <Wind className="h-4 w-4 md:h-5 md:w-5 text-primary" />
                   <div>
                     <p className="text-xs text-muted-foreground">Wind Speed</p>
-                    <p className="text-lg font-bold">{weather.windSpeed} mph</p>
+                    <p className="text-sm md:text-lg font-bold">{weather.windSpeed} mph</p>
                   </div>
                 </div>
               </div>
 
-              <div className="p-4 bg-success/10 border-2 border-success/20 rounded-lg">
-                <div className="flex items-center gap-2 mb-2">
-                  <Shield className="h-5 w-5 text-success" />
-                  <p className="font-semibold text-success">Safety Level: {weather.safetyLevel}</p>
+              <div className="p-3 md:p-4 bg-success/10 border-2 border-success/20 rounded-lg">
+                <div className="flex items-center gap-2 mb-1 md:mb-2">
+                  <Shield className="h-4 w-4 md:h-5 md:w-5 text-success" />
+                  <p className="text-sm md:text-base font-semibold text-success">Safety Level: {weather.safetyLevel}</p>
                 </div>
-                <p className="text-sm text-muted-foreground">Perfect conditions for hiking today</p>
+                <p className="text-xs md:text-sm text-muted-foreground">Perfect conditions for hiking today</p>
               </div>
 
               <div>
-                <p className="text-sm font-medium mb-3">Hourly Forecast</p>
-                <div className="flex gap-2 overflow-x-auto pb-2">
+                <p className="text-xs md:text-sm font-medium mb-2 md:mb-3">Hourly Forecast</p>
+                <div className="flex gap-1.5 md:gap-2 overflow-x-auto pb-2">
                   {weather.hourlyForecast.map((hour, idx) => (
-                    <div key={idx} className="flex flex-col items-center gap-2 p-3 border-2 rounded-lg min-w-[80px]">
+                    <div key={idx} className="flex flex-col items-center gap-1 md:gap-2 p-2 md:p-3 border-2 rounded-lg min-w-[60px] md:min-w-[80px]">
                       <p className="text-xs font-medium">{hour.time}</p>
-                      {hour.condition === 'sunny' && <Sun className="h-5 w-5 text-primary" />}
-                      {hour.condition === 'partly-cloudy' && <Cloud className="h-5 w-5 text-primary" />}
-                      {hour.condition === 'cloudy' && <CloudRain className="h-5 w-5 text-primary" />}
+                      {hour.condition === 'sunny' && <Sun className="h-4 w-4 md:h-5 md:w-5 text-primary" />}
+                      {hour.condition === 'partly-cloudy' && <Cloud className="h-4 w-4 md:h-5 md:w-5 text-primary" />}
+                      {hour.condition === 'cloudy' && <CloudRain className="h-4 w-4 md:h-5 md:w-5 text-primary" />}
                       <p className="text-sm font-bold">{hour.temp}°</p>
                     </div>
                   ))}
@@ -319,102 +319,102 @@ const Dashboard = () => {
           </Card>
 
           <Card className="border-2">
-            <CardHeader>
-              <CardTitle className="text-2xl flex items-center gap-2">
-                <Activity className="h-6 w-6 text-success" />
+            <CardHeader className="pb-3 md:pb-6">
+              <CardTitle className="text-lg md:text-2xl flex items-center gap-2">
+                <Activity className="h-5 w-5 md:h-6 md:w-6 text-success" />
                 Anomaly Detection
               </CardTitle>
-              <CardDescription>Real-time safety monitoring status</CardDescription>
+              <CardDescription className="text-xs md:text-sm">Real-time safety monitoring status</CardDescription>
             </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="p-4 bg-success/10 border-2 border-success/20 rounded-lg">
-                <div className="flex items-center justify-between mb-2">
+            <CardContent className="space-y-2 md:space-y-4">
+              <div className="p-3 md:p-4 bg-success/10 border-2 border-success/20 rounded-lg">
+                <div className="flex items-center justify-between mb-1 md:mb-2">
                   <div className="flex items-center gap-2">
-                    <div className="h-3 w-3 rounded-full bg-success animate-pulse" />
-                    <p className="font-semibold text-success">All Systems Normal</p>
+                    <div className="h-2 w-2 md:h-3 md:w-3 rounded-full bg-success animate-pulse" />
+                    <p className="text-sm md:text-base font-semibold text-success">All Systems Normal</p>
                   </div>
-                  <Badge variant="default" className="bg-success text-success-foreground">Active</Badge>
+                  <Badge variant="default" className="bg-success text-success-foreground text-xs">Active</Badge>
                 </div>
-                <p className="text-sm text-muted-foreground">No anomalies detected</p>
+                <p className="text-xs md:text-sm text-muted-foreground">No anomalies detected</p>
               </div>
 
-              <div className="space-y-3">
-                <div className="flex items-center justify-between p-4 border-2 rounded-lg">
-                  <div className="flex items-center gap-3">
-                    <Battery className="h-5 w-5 text-success" />
+              <div className="space-y-2 md:space-y-3">
+                <div className="flex items-center justify-between p-2 md:p-4 border-2 rounded-lg">
+                  <div className="flex items-center gap-2 md:gap-3">
+                    <Battery className="h-4 w-4 md:h-5 md:w-5 text-success" />
                     <div>
-                      <p className="font-medium">Battery Level</p>
-                      <p className="text-sm text-muted-foreground">Device power status</p>
+                      <p className="text-sm md:text-base font-medium">Battery Level</p>
+                      <p className="text-xs md:text-sm text-muted-foreground hidden md:block">Device power status</p>
                     </div>
                   </div>
                   <div className="text-right">
-                    <p className="text-2xl font-bold text-success">{safetyStatus.battery}%</p>
+                    <p className="text-lg md:text-2xl font-bold text-success">{safetyStatus.battery}%</p>
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between p-4 border-2 rounded-lg">
-                  <div className="flex items-center gap-3">
-                    <Activity className="h-5 w-5 text-success" />
+                <div className="flex items-center justify-between p-2 md:p-4 border-2 rounded-lg">
+                  <div className="flex items-center gap-2 md:gap-3">
+                    <Activity className="h-4 w-4 md:h-5 md:w-5 text-success" />
                     <div>
-                      <p className="font-medium">Movement Status</p>
-                      <p className="text-sm text-muted-foreground">Activity detection</p>
+                      <p className="text-sm md:text-base font-medium">Movement Status</p>
+                      <p className="text-xs md:text-sm text-muted-foreground hidden md:block">Activity detection</p>
                     </div>
                   </div>
                   <div className="text-right">
-                    <p className="text-lg font-bold text-success">{safetyStatus.movement}</p>
+                    <p className="text-base md:text-lg font-bold text-success">{safetyStatus.movement}</p>
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between p-4 border-2 rounded-lg">
-                  <div className="flex items-center gap-3">
-                    <Activity className="h-5 w-5 text-primary" />
+                <div className="flex items-center justify-between p-2 md:p-4 border-2 rounded-lg">
+                  <div className="flex items-center gap-2 md:gap-3">
+                    <Activity className="h-4 w-4 md:h-5 md:w-5 text-primary" />
                     <div>
-                      <p className="font-medium">Heart Rate</p>
-                      <p className="text-sm text-muted-foreground">Real-time monitoring</p>
+                      <p className="text-sm md:text-base font-medium">Heart Rate</p>
+                      <p className="text-xs md:text-sm text-muted-foreground hidden md:block">Real-time monitoring</p>
                     </div>
                   </div>
                   <div className="text-right">
-                    <p className="text-2xl font-bold">{safetyStatus.heartRate} <span className="text-sm text-muted-foreground">bpm</span></p>
+                    <p className="text-lg md:text-2xl font-bold">{safetyStatus.heartRate} <span className="text-xs md:text-sm text-muted-foreground">bpm</span></p>
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between p-4 border-2 rounded-lg">
-                  <div className="flex items-center gap-3">
-                    <MapPin className="h-5 w-5 text-success" />
+                <div className="flex items-center justify-between p-2 md:p-4 border-2 rounded-lg">
+                  <div className="flex items-center gap-2 md:gap-3">
+                    <MapPin className="h-4 w-4 md:h-5 md:w-5 text-success" />
                     <div>
-                      <p className="font-medium">GPS Signal</p>
-                      <p className="text-sm text-muted-foreground">Location tracking</p>
+                      <p className="text-sm md:text-base font-medium">GPS Signal</p>
+                      <p className="text-xs md:text-sm text-muted-foreground hidden md:block">Location tracking</p>
                     </div>
                   </div>
                   <div className="text-right">
-                    <p className="text-lg font-bold text-success">{safetyStatus.gpsSignal}</p>
+                    <p className="text-base md:text-lg font-bold text-success">{safetyStatus.gpsSignal}</p>
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between p-4 border-2 rounded-lg">
-                  <div className="flex items-center gap-3">
-                    <Clock className="h-5 w-5 text-primary" />
+                <div className="flex items-center justify-between p-2 md:p-4 border-2 rounded-lg">
+                  <div className="flex items-center gap-2 md:gap-3">
+                    <Clock className="h-4 w-4 md:h-5 md:w-5 text-primary" />
                     <div>
-                      <p className="font-medium">Last Check-in</p>
-                      <p className="text-sm text-muted-foreground">Auto check-in status</p>
+                      <p className="text-sm md:text-base font-medium">Last Check-in</p>
+                      <p className="text-xs md:text-sm text-muted-foreground hidden md:block">Auto check-in status</p>
                     </div>
                   </div>
                   <div className="text-right">
-                    <p className="text-lg font-bold">{safetyStatus.lastCheckIn}</p>
+                    <p className="text-base md:text-lg font-bold">{safetyStatus.lastCheckIn}</p>
                   </div>
                 </div>
 
-                <div className="p-4 border-2 rounded-lg bg-card">
+                <div className="p-2 md:p-4 border-2 rounded-lg bg-card">
                   <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-3">
-                      <AlertCircle className="h-5 w-5 text-primary" />
+                    <div className="flex items-center gap-2 md:gap-3">
+                      <AlertCircle className="h-4 w-4 md:h-5 md:w-5 text-primary" />
                       <div>
-                        <p className="font-medium">Anomalies Detected</p>
-                        <p className="text-sm text-muted-foreground">Last 24 hours</p>
+                        <p className="text-sm md:text-base font-medium">Anomalies Detected</p>
+                        <p className="text-xs md:text-sm text-muted-foreground hidden md:block">Last 24 hours</p>
                       </div>
                     </div>
                     <div className="text-right">
-                      <p className="text-3xl font-bold text-success">{safetyStatus.anomaliesDetected}</p>
+                      <p className="text-2xl md:text-3xl font-bold text-success">{safetyStatus.anomaliesDetected}</p>
                     </div>
                   </div>
                 </div>
@@ -423,46 +423,46 @@ const Dashboard = () => {
           </Card>
         </div>
 
-        <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 mb-8 animate-fade-in">
-          <Button size="lg" className="shadow-lg hover:shadow-xl transition-shadow flex-col h-24 gap-2" onClick={() => navigate("/new-hike")}>
-            <MapPin className="h-6 w-6" />
+        <div className="grid grid-cols-2 lg:grid-cols-5 gap-2 md:gap-4 mb-6 md:mb-8 animate-fade-in">
+          <Button size="lg" className="shadow-lg hover:shadow-xl transition-shadow flex-col h-20 md:h-24 gap-1 md:gap-2 text-xs md:text-sm" onClick={() => navigate("/new-hike")}>
+            <MapPin className="h-5 w-5 md:h-6 md:w-6" />
             <span>Start Hike</span>
           </Button>
-          <Button size="lg" variant="outline" className="border-2 flex-col h-24 gap-2" onClick={() => navigate("/gear-checklist")}>
-            <Backpack className="h-6 w-6" />
+          <Button size="lg" variant="outline" className="border-2 flex-col h-20 md:h-24 gap-1 md:gap-2 text-xs md:text-sm" onClick={() => navigate("/gear-checklist")}>
+            <Backpack className="h-5 w-5 md:h-6 md:w-6" />
             <span>Gear Checklist</span>
           </Button>
-          <Button size="lg" variant="outline" className="border-2 flex-col h-24 gap-2" onClick={() => navigate("/wildlife-alerts")}>
-            <AlertTriangle className="h-6 w-6" />
+          <Button size="lg" variant="outline" className="border-2 flex-col h-20 md:h-24 gap-1 md:gap-2 text-xs md:text-sm" onClick={() => navigate("/wildlife-alerts")}>
+            <AlertTriangle className="h-5 w-5 md:h-6 md:w-6" />
             <span>Wildlife Alerts</span>
           </Button>
-          <Button size="lg" variant="outline" className="border-2 flex-col h-24 gap-2" onClick={() => navigate("/offline-maps")}>
-            <MapIcon className="h-6 w-6" />
+          <Button size="lg" variant="outline" className="border-2 flex-col h-20 md:h-24 gap-1 md:gap-2 text-xs md:text-sm" onClick={() => navigate("/offline-maps")}>
+            <MapIcon className="h-5 w-5 md:h-6 md:w-6" />
             <span>Offline Maps</span>
           </Button>
-          <Button size="lg" variant="outline" className="border-2 flex-col h-24 gap-2" onClick={() => navigate("/interactive-trail-maps")}>
-            <Mountain className="h-6 w-6" />
+          <Button size="lg" variant="outline" className="border-2 flex-col h-20 md:h-24 gap-1 md:gap-2 text-xs md:text-sm col-span-2 lg:col-span-1" onClick={() => navigate("/interactive-trail-maps")}>
+            <Mountain className="h-5 w-5 md:h-6 md:w-6" />
             <span>Trail Maps</span>
           </Button>
         </div>
 
         <Card 
-          className="mb-8 border-2 shadow-lg bg-gradient-to-br from-primary/10 to-primary/5 cursor-pointer hover:shadow-xl transition-shadow"
+          className="mb-6 md:mb-8 border-2 shadow-lg bg-gradient-to-br from-primary/10 to-primary/5 cursor-pointer hover:shadow-xl transition-shadow"
           onClick={() => setShowCheckInDialog(true)}
         >
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Bell className="h-5 w-5 text-primary" />
+          <CardHeader className="pb-3 md:pb-6">
+            <CardTitle className="flex items-center gap-2 text-base md:text-lg">
+              <Bell className="h-4 w-4 md:h-5 md:w-5 text-primary" />
               Check-in Reminder
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between gap-4">
               <div>
-                <p className="font-medium">Next automatic check-in in:</p>
-                <p className="text-2xl font-bold text-primary">15 minutes</p>
+                <p className="text-sm md:text-base font-medium">Next automatic check-in in:</p>
+                <p className="text-xl md:text-2xl font-bold text-primary">15 minutes</p>
               </div>
-              <Button variant="outline" onClick={(e) => {
+              <Button variant="outline" size="sm" className="md:size-default text-xs md:text-sm" onClick={(e) => {
                 e.stopPropagation();
                 toast({
                   title: "Check-in Successful!",
@@ -474,36 +474,36 @@ const Dashboard = () => {
         </Card>
 
         {/* Trail Conditions Section */}
-        <div className="grid gap-6 lg:grid-cols-2 mb-8 animate-fade-in">
+        <div className="grid gap-4 md:gap-6 lg:grid-cols-2 mb-6 md:mb-8 animate-fade-in">
           <Card className="border-2">
-            <CardHeader>
-              <CardTitle className="text-2xl flex items-center gap-2">
-                <AlertTriangle className="h-6 w-6 text-orange-500" />
+            <CardHeader className="pb-3 md:pb-6">
+              <CardTitle className="text-lg md:text-2xl flex items-center gap-2">
+                <AlertTriangle className="h-5 w-5 md:h-6 md:w-6 text-orange-500" />
                 Trail Conditions
               </CardTitle>
-              <CardDescription>Real-time weather-based trail alerts</CardDescription>
+              <CardDescription className="text-xs md:text-sm">Real-time weather-based trail alerts</CardDescription>
             </CardHeader>
-            <CardContent className="space-y-3">
+            <CardContent className="space-y-2 md:space-y-3">
               {trailConditions.map((condition) => {
                 const IconComponent = condition.icon;
                 return (
                   <div 
                     key={condition.id}
-                    className={`p-4 rounded-lg border-2 ${condition.bgColor} border-${condition.severity === 'critical' ? 'red' : condition.severity === 'warning' ? 'blue' : 'orange'}-200 dark:border-${condition.severity === 'critical' ? 'red' : condition.severity === 'warning' ? 'blue' : 'orange'}-900`}
+                    className={`p-3 md:p-4 rounded-lg border-2 ${condition.bgColor} border-${condition.severity === 'critical' ? 'red' : condition.severity === 'warning' ? 'blue' : 'orange'}-200 dark:border-${condition.severity === 'critical' ? 'red' : condition.severity === 'warning' ? 'blue' : 'orange'}-900`}
                   >
-                    <div className="flex items-start gap-3">
-                      <div className={`rounded-full p-2 ${condition.severity === 'critical' ? 'bg-red-100 dark:bg-red-900/30' : condition.severity === 'warning' ? 'bg-blue-100 dark:bg-blue-900/30' : 'bg-orange-100 dark:bg-orange-900/30'}`}>
-                        <IconComponent className={`h-5 w-5 ${condition.color}`} />
+                    <div className="flex items-start gap-2 md:gap-3">
+                      <div className={`rounded-full p-1.5 md:p-2 ${condition.severity === 'critical' ? 'bg-red-100 dark:bg-red-900/30' : condition.severity === 'warning' ? 'bg-blue-100 dark:bg-blue-900/30' : 'bg-orange-100 dark:bg-orange-900/30'}`}>
+                        <IconComponent className={`h-4 w-4 md:h-5 md:w-5 ${condition.color}`} />
                       </div>
                       <div className="flex-1">
-                        <div className="flex items-center justify-between mb-1">
-                          <h4 className={`font-bold ${condition.color}`}>{condition.type}</h4>
+                        <div className="flex items-center justify-between mb-0.5 md:mb-1">
+                          <h4 className={`text-sm md:text-base font-bold ${condition.color}`}>{condition.type}</h4>
                           <Badge variant={condition.severity === 'critical' ? 'destructive' : 'outline'} className="text-xs">
                             {condition.severity}
                           </Badge>
                         </div>
-                        <p className="text-sm font-medium text-foreground mb-1">{condition.location}</p>
-                        <p className="text-sm text-muted-foreground mb-2">{condition.description}</p>
+                        <p className="text-xs md:text-sm font-medium text-foreground mb-0.5 md:mb-1">{condition.location}</p>
+                        <p className="text-xs md:text-sm text-muted-foreground mb-1 md:mb-2">{condition.description}</p>
                         <p className="text-xs text-muted-foreground flex items-center gap-1">
                           <Clock className="h-3 w-3" />
                           {condition.time}
@@ -518,38 +518,38 @@ const Dashboard = () => {
 
           {/* Live Location Sharing Section */}
           <Card className="border-2">
-            <CardHeader>
-              <div className="flex items-center justify-between">
+            <CardHeader className="pb-3 md:pb-6">
+              <div className="flex items-center justify-between gap-2">
                 <div>
-                  <CardTitle className="text-2xl flex items-center gap-2">
-                    <Share2 className="h-6 w-6 text-primary" />
+                  <CardTitle className="text-lg md:text-2xl flex items-center gap-2">
+                    <Share2 className="h-5 w-5 md:h-6 md:w-6 text-primary" />
                     Live Location Sharing
                   </CardTitle>
-                  <CardDescription>Share your location with friends & family</CardDescription>
+                  <CardDescription className="text-xs md:text-sm">Share your location with friends & family</CardDescription>
                 </div>
-                <Button size="sm" className="gap-2">
-                  <UserPlus className="h-4 w-4" />
-                  Add
+                <Button size="sm" className="gap-1 md:gap-2 text-xs md:text-sm h-8 md:h-9">
+                  <UserPlus className="h-3 w-3 md:h-4 md:w-4" />
+                  <span className="hidden md:inline">Add</span>
                 </Button>
               </div>
             </CardHeader>
-            <CardContent className="space-y-3">
-              <div className="p-4 bg-primary/10 rounded-lg border-2 border-primary/20">
-                <div className="flex items-center gap-2 mb-2">
-                  <div className="h-3 w-3 rounded-full bg-success animate-pulse" />
-                  <p className="font-semibold text-success">Location Sharing Active</p>
+            <CardContent className="space-y-2 md:space-y-3">
+              <div className="p-3 md:p-4 bg-primary/10 rounded-lg border-2 border-primary/20">
+                <div className="flex items-center gap-2 mb-1 md:mb-2">
+                  <div className="h-2 w-2 md:h-3 md:w-3 rounded-full bg-success animate-pulse" />
+                  <p className="text-sm md:text-base font-semibold text-success">Location Sharing Active</p>
                 </div>
-                <p className="text-sm text-muted-foreground">Your location is being shared with 2 contacts</p>
+                <p className="text-xs md:text-sm text-muted-foreground">Your location is being shared with 2 contacts</p>
               </div>
 
               <div className="space-y-2">
                 {locationSharing.map((person) => (
                   <div 
                     key={person.id}
-                    className="flex items-center justify-between p-4 border-2 rounded-lg hover:bg-accent/5 transition-colors"
+                    className="flex items-center justify-between p-3 md:p-4 border-2 rounded-lg hover:bg-accent/5 transition-colors"
                   >
-                    <div className="flex items-center gap-3">
-                      <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm ${
+                    <div className="flex items-center gap-2 md:gap-3">
+                      <div className={`w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center font-bold text-xs md:text-sm ${
                         person.status === 'active' 
                           ? 'bg-primary text-primary-foreground' 
                           : 'bg-muted text-muted-foreground'
@@ -557,26 +557,26 @@ const Dashboard = () => {
                         {person.avatar}
                       </div>
                       <div>
-                        <p className="font-medium">{person.name}</p>
-                        <p className="text-sm text-muted-foreground">{person.lastUpdate}</p>
+                        <p className="text-sm md:text-base font-medium">{person.name}</p>
+                        <p className="text-xs md:text-sm text-muted-foreground">{person.lastUpdate}</p>
                       </div>
                     </div>
                     <div className="text-right">
                       {person.status === 'active' ? (
                         <>
-                          <Badge variant="default" className="bg-success text-success-foreground mb-1">Active</Badge>
-                          <p className="text-xs text-muted-foreground">{person.distance}</p>
+                          <Badge variant="default" className="bg-success text-success-foreground mb-0.5 md:mb-1 text-xs">Active</Badge>
+                          <p className="text-xs text-muted-foreground hidden md:block">{person.distance}</p>
                         </>
                       ) : (
-                        <Badge variant="outline">Offline</Badge>
+                        <Badge variant="outline" className="text-xs">Offline</Badge>
                       )}
                     </div>
                   </div>
                 ))}
               </div>
 
-              <Button variant="outline" className="w-full border-2">
-                <MapPin className="h-4 w-4 mr-2" />
+              <Button variant="outline" className="w-full border-2 text-xs md:text-sm">
+                <MapPin className="h-3 w-3 md:h-4 md:w-4 mr-2" />
                 View All on Map
               </Button>
             </CardContent>
@@ -584,37 +584,37 @@ const Dashboard = () => {
         </div>
 
         {activeHikes.length > 0 && (
-          <Card className="mb-8 border-2 animate-fade-in">
-            <CardHeader>
+          <Card className="mb-6 md:mb-8 border-2 animate-fade-in">
+            <CardHeader className="pb-3 md:pb-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <CardTitle className="text-2xl">Active Hikes</CardTitle>
-                  <CardDescription>Your currently active hikes</CardDescription>
+                  <CardTitle className="text-lg md:text-2xl">Active Hikes</CardTitle>
+                  <CardDescription className="text-xs md:text-sm">Your currently active hikes</CardDescription>
                 </div>
-                <Badge variant="default" className="bg-success text-success-foreground">Live</Badge>
+                <Badge variant="default" className="bg-success text-success-foreground text-xs">Live</Badge>
               </div>
             </CardHeader>
             <CardContent>
-              <div className="space-y-4">
+              <div className="space-y-3 md:space-y-4">
                 {activeHikes.map((hike) => (
                   <div 
                     key={hike.id} 
-                    className="flex items-center justify-between p-6 border-2 rounded-lg bg-card hover:bg-accent/5 transition-colors"
+                    className="flex items-center justify-between p-4 md:p-6 border-2 rounded-lg bg-card hover:bg-accent/5 transition-colors gap-3"
                   >
-                    <div className="flex items-center gap-4">
-                      <div className="bg-success/10 rounded-full p-3">
-                        <MapPin className="h-6 w-6 text-success" />
+                    <div className="flex items-center gap-3 md:gap-4 flex-1 min-w-0">
+                      <div className="bg-success/10 rounded-full p-2 md:p-3">
+                        <MapPin className="h-5 w-5 md:h-6 md:w-6 text-success" />
                       </div>
-                      <div>
-                        <h3 className="font-bold text-lg">{hike.name}</h3>
-                        <p className="text-sm text-muted-foreground flex items-center gap-2">
-                          <Clock className="h-3 w-3" />
-                          Started: {new Date(hike.started_at).toLocaleString()}
+                      <div className="min-w-0 flex-1">
+                        <h3 className="font-bold text-base md:text-lg truncate">{hike.name}</h3>
+                        <p className="text-xs md:text-sm text-muted-foreground flex items-center gap-1 md:gap-2">
+                          <Clock className="h-3 w-3 shrink-0" />
+                          <span className="truncate">Started: {new Date(hike.started_at).toLocaleString()}</span>
                         </p>
                       </div>
                     </div>
-                    <Button className="shadow-md" onClick={() => navigate(`/hike/${hike.id}`)}>
-                      View Details
+                    <Button size="sm" className="shadow-md text-xs md:text-sm shrink-0" onClick={() => navigate(`/hike/${hike.id}`)}>
+                      View
                     </Button>
                   </div>
                 ))}
@@ -625,46 +625,46 @@ const Dashboard = () => {
 
         {recentHikes.length > 0 && (
           <Card className="border-2 animate-fade-in">
-            <CardHeader>
-              <CardTitle className="text-2xl">Recent Activity</CardTitle>
-              <CardDescription>Your recent and planned hikes</CardDescription>
+            <CardHeader className="pb-3 md:pb-6">
+              <CardTitle className="text-lg md:text-2xl">Recent Activity</CardTitle>
+              <CardDescription className="text-xs md:text-sm">Your recent and planned hikes</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="space-y-4">
+              <div className="space-y-3 md:space-y-4">
                 {recentHikes.map((hike) => (
                   <div 
                     key={hike.id} 
-                    className="flex items-center justify-between p-6 border-2 rounded-lg bg-card hover:bg-accent/5 transition-colors"
+                    className="flex items-center justify-between p-4 md:p-6 border-2 rounded-lg bg-card hover:bg-accent/5 transition-colors gap-3"
                   >
-                    <div className="flex items-center gap-4">
-                      <div className={`rounded-full p-3 ${
+                    <div className="flex items-center gap-3 md:gap-4 flex-1 min-w-0">
+                      <div className={`rounded-full p-2 md:p-3 ${
                         hike.status === 'completed' 
                           ? 'bg-success/10' 
                           : 'bg-primary/10'
                       }`}>
                         {hike.status === 'completed' ? (
-                          <TrendingUp className={`h-6 w-6 ${
+                          <TrendingUp className={`h-5 w-5 md:h-6 md:w-6 ${
                             hike.status === 'completed' ? 'text-success' : 'text-primary'
                           }`} />
                         ) : (
-                          <MapPin className="h-6 w-6 text-primary" />
+                          <MapPin className="h-5 w-5 md:h-6 md:w-6 text-primary" />
                         )}
                       </div>
-                      <div>
-                        <div className="flex items-center gap-2">
-                          <h3 className="font-bold text-lg">{hike.name}</h3>
-                          <Badge variant={hike.status === 'completed' ? 'default' : 'outline'}>
+                      <div className="min-w-0 flex-1">
+                        <div className="flex items-center gap-2 mb-1">
+                          <h3 className="font-bold text-base md:text-lg truncate">{hike.name}</h3>
+                          <Badge variant={hike.status === 'completed' ? 'default' : 'outline'} className="text-xs shrink-0">
                             {hike.status}
                           </Badge>
                         </div>
-                        <p className="text-sm text-muted-foreground">
+                        <p className="text-xs md:text-sm text-muted-foreground truncate">
                           {hike.distance && `${hike.distance} km`}
                           {hike.duration && ` • ${Math.floor(hike.duration / 60)}h ${hike.duration % 60}m`}
                           {` • ${new Date(hike.created_at).toLocaleDateString()}`}
                         </p>
                       </div>
                     </div>
-                    <Button variant="outline" className="border-2" onClick={() => navigate(`/hike/${hike.id}`)}>
+                    <Button variant="outline" size="sm" className="border-2 text-xs md:text-sm shrink-0" onClick={() => navigate(`/hike/${hike.id}`)}>
                       View
                     </Button>
                   </div>
@@ -678,11 +678,12 @@ const Dashboard = () => {
       <Button
         size="lg"
         variant="destructive"
-        className="fixed bottom-8 right-8 shadow-2xl text-lg py-6 px-8 hover:scale-105 transition-transform z-50"
+        className="fixed bottom-4 right-4 md:bottom-8 md:right-8 shadow-2xl text-sm md:text-lg py-4 px-6 md:py-6 md:px-8 hover:scale-105 transition-transform z-50"
         onClick={handleSOS}
       >
-        <AlertCircle className="h-6 w-6 mr-2" />
-        SEND SOS ALERT
+        <AlertCircle className="h-5 w-5 md:h-6 md:w-6 mr-1.5 md:mr-2" />
+        <span className="hidden sm:inline">SEND SOS ALERT</span>
+        <span className="sm:hidden">SOS</span>
       </Button>
 
       <Dialog open={showCheckInDialog} onOpenChange={setShowCheckInDialog}>

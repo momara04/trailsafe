@@ -423,7 +423,7 @@ const Dashboard = () => {
           </Card>
         </div>
 
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8 animate-fade-in">
+        <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 mb-8 animate-fade-in">
           <Button size="lg" className="shadow-lg hover:shadow-xl transition-shadow flex-col h-24 gap-2" onClick={() => navigate("/new-hike")}>
             <MapPin className="h-6 w-6" />
             <span>Start Hike</span>
@@ -439,6 +439,10 @@ const Dashboard = () => {
           <Button size="lg" variant="outline" className="border-2 flex-col h-24 gap-2" onClick={() => navigate("/offline-maps")}>
             <MapIcon className="h-6 w-6" />
             <span>Offline Maps</span>
+          </Button>
+          <Button size="lg" variant="outline" className="border-2 flex-col h-24 gap-2" onClick={() => navigate("/interactive-trail-maps")}>
+            <Mountain className="h-6 w-6" />
+            <span>Trail Maps</span>
           </Button>
         </div>
 

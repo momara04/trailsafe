@@ -12,6 +12,7 @@ import Settings from "./pages/Settings";
 import GearChecklist from "./pages/GearChecklist";
 import WildlifeAlerts from "./pages/WildlifeAlerts";
 import OfflineMaps from "./pages/OfflineMaps";
+import InteractiveTrailMaps from "./pages/InteractiveTrailMaps";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -32,6 +33,7 @@ const App = () => (
           <Route path="/gear-checklist" element={<GearChecklist />} />
           <Route path="/wildlife-alerts" element={<WildlifeAlerts />} />
           <Route path="/offline-maps" element={<OfflineMaps />} />
+          <Route path="/interactive-trail-maps" element={<InteractiveTrailMaps />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

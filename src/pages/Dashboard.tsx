@@ -3,9 +3,11 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Mountain, Settings, Users, MapPin, Clock, TrendingUp, AlertCircle, Cloud, Droplets, Wind, Battery, Activity, Shield, Sun, CloudRain, Backpack, AlertTriangle, Map as MapIcon, Bell } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
 
 const Dashboard = () => {
   const navigate = useNavigate();
+  const { toast } = useToast();
 
   // Mock data for beautiful UI
   const activeHikes = [
@@ -69,6 +71,14 @@ const Dashboard = () => {
     lastCheckIn: "2 min ago",
     gpsSignal: "Strong",
     anomaliesDetected: 0
+  };
+
+  const handleSOS = () => {
+    toast({ 
+      title: "SOS Alert Sent!", 
+      description: "Emergency contacts have been notified.",
+      variant: "default" 
+    });
   };
 
   return (
@@ -438,6 +448,16 @@ const Dashboard = () => {
           </Card>
         )}
       </main>
+
+      <Button
+        size="lg"
+        variant="destructive"
+        className="fixed bottom-8 right-8 shadow-2xl text-lg py-6 px-8 hover:scale-105 transition-transform z-50"
+        onClick={handleSOS}
+      >
+        <AlertCircle className="h-6 w-6 mr-2" />
+        SEND SOS ALERT
+      </Button>
     </div>
   );
 };

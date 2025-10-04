@@ -1,0 +1,102 @@
+openapi: 3.0.3
+info:
+  title: TrailSafe API
+  version: 1.0.0
+servers:
+  - url: http://localhost:4000
+paths:
+  /api/health:
+    get:
+      summary: Health check
+      responses: { '200': { description: OK } }
+
+  /api/hikes:
+    get:
+      summary: List hikes
+      parameters:
+        - in: query
+          name: userId
+          schema: { type: string }
+      responses: { '200': { description: OK } }
+    post:
+      summary: Create/start a hike
+      requestBody: { required: true, content: { application/json: {} } }
+      responses: { '200': { description: OK } }
+
+  /api/hikes/{id}/waypoints:
+    post:
+      summary: Add waypoint (live tracking)
+      parameters: [{ in: path, name: id, required: true, schema: { type: string } }]
+      requestBody: { required: true, content: { application/json: {} } }
+      responses: { '200': { description: OK } }
+
+  /api/hikes/{id}/complete:
+    post:
+      summary: Complete a hike
+      parameters: [{ in: path, name: id, required: true, schema: { type: string } }]
+      requestBody: { required: true, content: { application/json: {} } }
+      responses: { '200': { description: OK } }
+
+  /api/safety/checkin:
+    post:
+      summary: Submit check-in result
+      requestBody: { required: true, content: { application/json: {} } }
+      responses: { '200': { description: OK } }
+
+  /api/safety/analyze:
+    post:
+      summary: Analyze recent movement samples
+      requestBody: { required: true, content: { application/json: {} } }
+      responses: { '200': { description: OK } }
+
+  /api/safety/escalate:
+    post:
+      summary: Notify contacts (escalation)
+      requestBody: { required: true, content: { application/json: {} } }
+      responses: { '200': { description: OK } }
+
+  /api/weather:
+    get:
+      summary: Get weather by lat/lng
+      parameters:
+        - in: query
+          name: lat
+          schema: { type: number }
+        - in: query
+          name: lng
+          schema: { type: number }
+      responses: { '200': { description: OK } }
+
+  /api/trails:
+    get:
+      summary: List trails
+      parameters:
+        - in: query
+          name: q
+          schema: { type: string }
+        - in: query
+          name: difficulty
+          schema: { type: string, enum: [easy, moderate, hard] }
+      responses: { '200': { description: OK } }
+
+  /api/trails/{id}:
+    get:
+      summary: Get a trail by id
+      parameters: [{ in: path, name: id, required: true, schema: { type: string } }]
+      responses: { '200': { description: OK } }
+
+  /api/maps:
+    get:
+      summary: List offline map packages
+      responses: { '200': { description: OK } }
+
+  /api/maps/{id}/toggle:
+    post:
+      summary: Toggle offline package downloaded
+      parameters: [{ in: path, name: id, required: true, schema: { type: string } }]
+      responses: { '200': { description: OK } }
+
+  /api/wildlife:
+    get:
+      summary: Wildlife sightings feed
+      responses: { '200': { description: OK } }

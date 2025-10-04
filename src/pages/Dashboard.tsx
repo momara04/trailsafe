@@ -2,15 +2,18 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Mountain, Settings, Users, MapPin, Clock, TrendingUp, AlertCircle, Cloud, Droplets, Wind, Battery, Activity, Shield, Sun, CloudRain, Backpack, AlertTriangle, Map as MapIcon, Bell } from "lucide-react";
+import { Mountain, Settings, Users, MapPin, Clock, TrendingUp, AlertCircle, Cloud, Droplets, Wind, Battery, Activity, Shield, Sun, CloudRain, Backpack, AlertTriangle, Map as MapIcon, Bell, Check } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { useState } from "react";
+import * as React from "react";
 
 const Dashboard = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const [showCheckInDialog, setShowCheckInDialog] = useState(false);
+  const [showSafetyCheck, setShowSafetyCheck] = useState(false);
+  const [safetyCheckTimer, setSafetyCheckTimer] = useState(20);
 
   // Mock data for beautiful UI
   const activeHikes = [
@@ -83,6 +86,38 @@ const Dashboard = () => {
       variant: "default" 
     });
   };
+
+  // Safety check popup - appears every minute
+  React.useEffect(() => {
+    const interval = setInterval(() => {
+      setShowSafetyCheck(true);
+      setSafetyCheckTimer(20);
+    }, 60000); // Every 60 seconds
+
+    return () => clearInterval(interval);
+  }, []);
+
+  // Countdown timer for safety check
+  React.useEffect(() => {
+    if (!showSafetyCheck) return;
+
+    const timer = setInterval(() => {
+      setSafetyCheckTimer((prev) => {
+        if (prev <= 1) {
+          setShowSafetyCheck(false);
+          toast({
+            title: "Safety Check Missed",
+            description: "Emergency contacts will be notified.",
+            variant: "destructive"
+          });
+          return 20;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [showSafetyCheck, toast]);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-secondary/20 to-background">
@@ -512,6 +547,45 @@ const Dashboard = () => {
               <Bell className="h-4 w-4 mr-2" />
               Check In Now
             </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* Safety Check Notification */}
+      <Dialog open={showSafetyCheck} onOpenChange={setShowSafetyCheck}>
+        <DialogContent className="sm:max-w-md">
+          <div className="flex flex-col items-center text-center space-y-6 py-6">
+            <div className="rounded-full bg-red-50 dark:bg-red-950/30 p-6">
+              <AlertTriangle className="h-12 w-12 text-red-500" />
+            </div>
+            
+            <div className="space-y-2">
+              <h2 className="text-2xl font-bold tracking-tight">SAFETY CHECK REQUIRED</h2>
+              <p className="text-muted-foreground">
+                Unusual movement detected. Are you okay?
+              </p>
+            </div>
+
+            <Button 
+              size="lg"
+              className="w-full bg-red-500 hover:bg-red-600 text-white text-lg py-6"
+              onClick={() => {
+                setShowSafetyCheck(false);
+                toast({
+                  title: "Safety Check Confirmed",
+                  description: "Thank you for responding. Stay safe!",
+                });
+              }}
+            >
+              <Check className="h-5 w-5 mr-2" />
+              I'M HERE
+            </Button>
+
+            <div className="flex items-center gap-2 text-sm bg-muted px-4 py-3 rounded-lg w-full justify-center">
+              <Clock className="h-4 w-4 text-muted-foreground" />
+              <span className="text-muted-foreground">Time remaining:</span>
+              <span className="font-semibold text-red-500">{safetyCheckTimer}s</span>
+            </div>
           </div>
         </DialogContent>
       </Dialog>

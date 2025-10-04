@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Mountain, Settings, Users, MapPin, Clock, TrendingUp, AlertCircle, Cloud, Droplets, Wind, Battery, Activity, Shield, Sun, CloudRain, Backpack, AlertTriangle, Map as MapIcon, Bell, Check } from "lucide-react";
+import { Mountain, Settings, Users, MapPin, Clock, TrendingUp, AlertCircle, Cloud, Droplets, Wind, Battery, Activity, Shield, Sun, CloudRain, Backpack, AlertTriangle, Map as MapIcon, Bell, Check, Waves, Snowflake, CloudDrizzle, UserPlus, Share2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { useState } from "react";
@@ -78,6 +78,71 @@ const Dashboard = () => {
     gpsSignal: "Strong",
     anomaliesDetected: 0
   };
+
+  // Mock trail conditions data based on weather
+  const trailConditions = [
+    {
+      id: "1",
+      type: "Flash Flood Warning",
+      severity: "critical",
+      icon: Waves,
+      location: "Canyon Trail West",
+      description: "Heavy rainfall detected. Flash flooding possible in low-lying areas.",
+      time: "Updated 5 min ago",
+      color: "text-red-500",
+      bgColor: "bg-red-50 dark:bg-red-950/30"
+    },
+    {
+      id: "2",
+      type: "Snow Conditions",
+      severity: "warning",
+      icon: Snowflake,
+      location: "Summit Ridge Trail",
+      description: "6-8 inches of fresh snow. Ice patches on north-facing slopes.",
+      time: "Updated 15 min ago",
+      color: "text-blue-500",
+      bgColor: "bg-blue-50 dark:bg-blue-950/30"
+    },
+    {
+      id: "3",
+      type: "Heavy Rain Expected",
+      severity: "moderate",
+      icon: CloudDrizzle,
+      location: "Forest Loop Trail",
+      description: "Moderate to heavy rain forecasted. Trails may be muddy and slippery.",
+      time: "Updated 25 min ago",
+      color: "text-orange-500",
+      bgColor: "bg-orange-50 dark:bg-orange-950/30"
+    }
+  ];
+
+  // Mock location sharing data
+  const locationSharing = [
+    {
+      id: "1",
+      name: "Sarah Miller",
+      status: "active",
+      avatar: "SM",
+      lastUpdate: "Just now",
+      distance: "2.3 km away"
+    },
+    {
+      id: "2",
+      name: "Mike Johnson",
+      status: "active",
+      avatar: "MJ",
+      lastUpdate: "1 min ago",
+      distance: "5.7 km away"
+    },
+    {
+      id: "3",
+      name: "Emily Davis",
+      status: "inactive",
+      avatar: "ED",
+      lastUpdate: "Not sharing",
+      distance: "-"
+    }
+  ];
 
   const handleSOS = () => {
     toast({ 
@@ -403,6 +468,116 @@ const Dashboard = () => {
             </div>
           </CardContent>
         </Card>
+
+        {/* Trail Conditions Section */}
+        <div className="grid gap-6 lg:grid-cols-2 mb-8 animate-fade-in">
+          <Card className="border-2">
+            <CardHeader>
+              <CardTitle className="text-2xl flex items-center gap-2">
+                <AlertTriangle className="h-6 w-6 text-orange-500" />
+                Trail Conditions
+              </CardTitle>
+              <CardDescription>Real-time weather-based trail alerts</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-3">
+              {trailConditions.map((condition) => {
+                const IconComponent = condition.icon;
+                return (
+                  <div 
+                    key={condition.id}
+                    className={`p-4 rounded-lg border-2 ${condition.bgColor} border-${condition.severity === 'critical' ? 'red' : condition.severity === 'warning' ? 'blue' : 'orange'}-200 dark:border-${condition.severity === 'critical' ? 'red' : condition.severity === 'warning' ? 'blue' : 'orange'}-900`}
+                  >
+                    <div className="flex items-start gap-3">
+                      <div className={`rounded-full p-2 ${condition.severity === 'critical' ? 'bg-red-100 dark:bg-red-900/30' : condition.severity === 'warning' ? 'bg-blue-100 dark:bg-blue-900/30' : 'bg-orange-100 dark:bg-orange-900/30'}`}>
+                        <IconComponent className={`h-5 w-5 ${condition.color}`} />
+                      </div>
+                      <div className="flex-1">
+                        <div className="flex items-center justify-between mb-1">
+                          <h4 className={`font-bold ${condition.color}`}>{condition.type}</h4>
+                          <Badge variant={condition.severity === 'critical' ? 'destructive' : 'outline'} className="text-xs">
+                            {condition.severity}
+                          </Badge>
+                        </div>
+                        <p className="text-sm font-medium text-foreground mb-1">{condition.location}</p>
+                        <p className="text-sm text-muted-foreground mb-2">{condition.description}</p>
+                        <p className="text-xs text-muted-foreground flex items-center gap-1">
+                          <Clock className="h-3 w-3" />
+                          {condition.time}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </CardContent>
+          </Card>
+
+          {/* Live Location Sharing Section */}
+          <Card className="border-2">
+            <CardHeader>
+              <div className="flex items-center justify-between">
+                <div>
+                  <CardTitle className="text-2xl flex items-center gap-2">
+                    <Share2 className="h-6 w-6 text-primary" />
+                    Live Location Sharing
+                  </CardTitle>
+                  <CardDescription>Share your location with friends & family</CardDescription>
+                </div>
+                <Button size="sm" className="gap-2">
+                  <UserPlus className="h-4 w-4" />
+                  Add
+                </Button>
+              </div>
+            </CardHeader>
+            <CardContent className="space-y-3">
+              <div className="p-4 bg-primary/10 rounded-lg border-2 border-primary/20">
+                <div className="flex items-center gap-2 mb-2">
+                  <div className="h-3 w-3 rounded-full bg-success animate-pulse" />
+                  <p className="font-semibold text-success">Location Sharing Active</p>
+                </div>
+                <p className="text-sm text-muted-foreground">Your location is being shared with 2 contacts</p>
+              </div>
+
+              <div className="space-y-2">
+                {locationSharing.map((person) => (
+                  <div 
+                    key={person.id}
+                    className="flex items-center justify-between p-4 border-2 rounded-lg hover:bg-accent/5 transition-colors"
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm ${
+                        person.status === 'active' 
+                          ? 'bg-primary text-primary-foreground' 
+                          : 'bg-muted text-muted-foreground'
+                      }`}>
+                        {person.avatar}
+                      </div>
+                      <div>
+                        <p className="font-medium">{person.name}</p>
+                        <p className="text-sm text-muted-foreground">{person.lastUpdate}</p>
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      {person.status === 'active' ? (
+                        <>
+                          <Badge variant="default" className="bg-success text-success-foreground mb-1">Active</Badge>
+                          <p className="text-xs text-muted-foreground">{person.distance}</p>
+                        </>
+                      ) : (
+                        <Badge variant="outline">Offline</Badge>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <Button variant="outline" className="w-full border-2">
+                <MapPin className="h-4 w-4 mr-2" />
+                View All on Map
+              </Button>
+            </CardContent>
+          </Card>
+        </div>
 
         {activeHikes.length > 0 && (
           <Card className="mb-8 border-2 animate-fade-in">
